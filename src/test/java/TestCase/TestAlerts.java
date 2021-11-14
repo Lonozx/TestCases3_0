@@ -1,7 +1,6 @@
 package TestCase;
 
 import Page.AlertPage;
-import Page.MainPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
@@ -10,14 +9,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
 
-
-import java.util.concurrent.TimeUnit;
-
-public class TestMainPage {
-    MainPage mainPage = new MainPage();
+public class TestAlerts {
     AlertPage alertPage = new AlertPage();
     WebDriver driver;
     @BeforeAll
@@ -43,13 +37,22 @@ public class TestMainPage {
             driver.quit();
         }
     }
-
     @Test
-    public void testMainPage() {
-        mainPage.getMainPage(driver);
+    public void alertsPage(){
+        alertPage.getToAlertPage(driver);
+        alertPage.clickButton(driver);
         String currentCond = driver.getCurrentUrl();
-        String expectedCond = "https://demoqa.com/";
+        String expectedCond = "https://demoqa.com/alerts";
         Assert.assertEquals(currentCond, expectedCond);
     }
-
+    @Test
+    public void buttonConfirm(){
+        alertPage.getToAlertPage(driver);
+        alertPage.confirmButton(driver);
+    }
+    @Test
+    public void buttonPrompt(){
+        alertPage.getToAlertPage(driver);
+        alertPage.promptButton(driver);
+    }
 }

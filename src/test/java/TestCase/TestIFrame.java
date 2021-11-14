@@ -8,15 +8,13 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
 
-
-import java.util.concurrent.TimeUnit;
-
-public class TestMainPage {
+public class TestIFrame {
     MainPage mainPage = new MainPage();
     AlertPage alertPage = new AlertPage();
     WebDriver driver;
@@ -43,13 +41,24 @@ public class TestMainPage {
             driver.quit();
         }
     }
-
     @Test
-    public void testMainPage() {
+    public void goToMainPage(){
         mainPage.getMainPage(driver);
-        String currentCond = driver.getCurrentUrl();
-        String expectedCond = "https://demoqa.com/";
-        Assert.assertEquals(currentCond, expectedCond);
+        String currentCondition = driver.getCurrentUrl();
+        String expectedCondition = "https://demoqa.com/";
+        Assert.assertEquals(currentCondition, expectedCondition);
     }
+    @Test
+    public void goToNestedFrames(){
+        mainPage.getMainPage(driver);
+        alertPage.nestedFrames(driver);
+//       String currentCondition = driver.findElement(By.xpath("//body[contains(text(), 'Pare')]")).getText();
+//        String expectedCondition = "'Parent frame'";
+//        Assert.assertEquals(currentCondition, expectedCondition);
+   }
+   @Test
+    public void goToFramesPage(){
+        alertPage.goToFrames(driver);
+   }
 
 }

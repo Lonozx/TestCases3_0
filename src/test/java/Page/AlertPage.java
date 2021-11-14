@@ -9,21 +9,35 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import static org.openqa.selenium.support.ui.ExpectedConditions.alertIsPresent;
 
 public class AlertPage {
-    BaseForm baseForm = new BaseForm("https://demoqa.com/alerts", "Alerts");
+    BaseForm baseForm = new BaseForm("//div[contains(text(), 'Alerts')]", "https://demoqa.com/alertsWindows");
     String alertsURL = "https://demoqa.com/alerts";
     public void getToAlertPage(WebDriver driver){
         driver.get(alertsURL);
     }
-    public void clickButton(WebDriver driver) throws InterruptedException {
+    public void clickButton(WebDriver driver){
         driver.findElement(By.xpath("//button[contains(@id, 'alertButton')]")).click();
-        Thread.sleep(2000);
         WebDriverWait wait = new WebDriverWait(driver, 10);
         Alert alert = wait.until(alertIsPresent());
-        Thread.sleep(2000);
         alert.accept();
     }
-    public void oK(WebDriver driver) throws InterruptedException{
-
-
+    public void confirmButton(WebDriver driver){
+        driver.findElement(By.xpath("//button[contains(@id, 'confirm')]")).click();
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        Alert alert = wait.until(alertIsPresent());
+        alert.accept();
+    }
+    public void promptButton(WebDriver driver){
+        driver.findElement(By.xpath("//button[contains(@id, 'promtButton')]")).click();
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        Alert alert = wait.until(alertIsPresent());
+        alert.accept();
+    }
+    public void nestedFrames(WebDriver driver){
+        driver.findElement(By.xpath("//h5[contains(text(), 'Alerts')]")).click();
+        driver.findElement(By.xpath("//span[contains(text(), 'Nested Frames')]")).click();
+    }
+    public void goToFrames(WebDriver driver){
+        driver.get("https://demoqa.com/nestedframes");
+        driver.findElement(By.xpath("//li[contains(@id, 'item-2')]//span[contains(text(), 'Frames')]")).click();
     }
 }
